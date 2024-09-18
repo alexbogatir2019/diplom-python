@@ -1,0 +1,210 @@
+
+### Регистрация нового пользователя User1
+POST http://localhost:8000/registration/
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "p123456789/",
+  "email": "11@yandex.ru"
+}
+
+### Регистрация нового пользователя User2
+POST http://localhost:8000/registration/
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "password": "p123456777/",
+  "email": "22@yandex.ru",
+  "first_name": "Alexey",
+  "last_name": "Sidorov"
+}
+
+### Регистрация нового пользователя User3
+POST http://localhost:8000/registration/
+Content-Type: application/json
+
+{
+  "username": "user3",
+  "password": "p9876543219/",
+  "email": "algenso@yandex.ru"
+}
+
+### Регистрация нового пользователя User3
+POST http://localhost:8000/registration/
+Content-Type: application/json
+
+{
+  "username": "user4",
+  "password": "p9876543219/"
+}
+
+###Аутентификация пользователя User2
+POST http://localhost:8000/login/
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "password": "p123456777/"
+}
+
+###Выход пользователя User2
+POST http://localhost:8000/logout/
+X-Csrf-Token: Request => Cookie => csrf_token
+
+###Получение токена для пользователя User2
+POST http://localhost:8000/token/
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "password": "p123456777/"
+}
+
+### Заполнение контактной информации пользователя User2
+POST http://localhost:8000/contact/
+Authorization: Token aadaea7bb8ee814c16c610aef1132931bd81dec8
+Content-Type: application/json
+
+{
+  "type": "SHOP",
+  "phone": "+7-921-111-22-58",
+  "city": "Москва",
+  "street": "Лермонтова",
+  "house": "2",
+  "apartment": "56"
+}
+
+
+###Получение токена для пользователя User1
+POST http://localhost:8000/token/
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "p123456789/"
+}
+
+### Заполнение контактной информации пользователя User1
+POST http://localhost:8000/contact/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+Content-Type: application/json
+
+{
+  "type": "BUYER",
+  "phone": "+7-921-333-44-55",
+  "city": "Москва",
+  "street": "Дмитровское шоссе",
+  "house": "51",
+  "apartment": "100"
+}
+
+### Получение контактной информации пользователя User1
+GET http://localhost:8000/contact/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+
+### Изменение контактной информации пользователя User1
+PATCH http://localhost:8000/contact/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+Content-Type: application/json
+
+{
+  "apartment": "200"
+}
+
+
+### Загрузка данных в базу
+POST http://localhost:8000/update/shop.yaml/
+Authorization: Token aadaea7bb8ee814c16c610aef1132931bd81dec8
+
+### Запрос всего перечня продуктов
+GET http://localhost:8000/products/
+
+### Запрос конкретного продукта
+GET http://localhost:8000/products/1
+
+### Запрос всего перечня магазинов
+GET http://localhost:8000/shops/
+
+### Запрос конкретного магазина
+GET http://localhost:8000/shops/1
+
+### Запрос всего перечня категорий
+GET http://localhost:8000/categories/
+
+### Запрос конкретной категории
+GET http://localhost:8000/categories/1
+
+### Запрос всего перечня параметров
+GET http://localhost:8000/parameters/
+
+### Запрос конкретного параметра
+GET http://localhost:8000/parameters/1
+
+### Запрос всего перечня заказов User2
+GET http://localhost:8000/orders/
+Authorization: Token a5ac67122e711bc5330956d6cb4f993f580a0bb5
+
+### Запрос всего перечня заказов
+GET http://localhost:8000/orders/
+
+### Запрос конкретного заказа
+GET http://localhost:8000/orders/1
+
+### Добавление товара в корзину для пользователя User1
+PUT http://localhost:8000/basket/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+Content-Type: application/json
+
+{
+  "product_id": 9,
+  "quantity": 3
+}
+
+### Запрос всего перечня заказов User1
+GET http://localhost:8000/orders/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+
+### Запрос конкретного заказа User1
+GET http://localhost:8000/orders/2/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+
+### Получение перечня товаров в корзине User1
+GET http://localhost:8000/basket/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+
+### Изменение количества товаров в корзине User1
+PATCH  http://localhost:8000/basket/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+Content-Type: application/json
+
+{
+  "product_id": 6,
+  "quantity": 5
+}
+
+### Удаление товара из корзины User1
+DELETE http://localhost:8000/basket/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+Content-Type: application/json
+
+{
+  "product_id": 9
+}
+
+### Создание нового заказа User1
+POST  http://localhost:8000/new_order/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+
+### Подтверждение нового заказа User1
+POST  http://localhost:8000/confirm_order/2/
+Authorization: Token b8b920ce97aaa43ce3a64c75351bf570bc783409
+
+### Создание нового заказа User2
+POST  http://localhost:8000/new_order/
+Authorization: Token a5ac67122e711bc5330956d6cb4f993f580a0bb5
+
+### Получение перечня товаров в корзине User2
+GET http://localhost:8000/basket/
+Authorization: Token a5ac67122e711bc5330956d6cb4f993f580a0bb5
